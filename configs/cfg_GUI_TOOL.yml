@@ -1,16 +1,18 @@
+#Visualization GUI 설정
 ### ----- General ----- ###
 GENERAL:
-  NAME: 'Visualzation GUI configuration'
-  DEVICE: 'gpu'
+  NAME: 'Visualzation GUI configuration' #설정파일
+  DEVICE: 'gpu' #GPU사용
 ### ----- General ----- ###
 
 ### ----- Dataset ----- ###
 DATASET:
-  NAME: 'KRadarDetection_v1_0'
-  TYPE_LOADING: 'path' # in ['dict','path']
+  NAME: 'KRadarDetection_v1_0' #dataset name
+  TYPE_LOADING: 'path' # in ['dict','path'] #data loading 방
 
-  NUM: # Total number of frames, just make this blank
+  NUM: # Total number of frames, just make this blank #데이터의 총 프레임 수 설정
 
+#데이터가 위치한 디렉토리의 경로를 설정하는 부분
   DIR:
     ### Server room 1 ###
     # The directory order may affect the performance due to sampling order
@@ -31,28 +33,29 @@ DATASET:
     # DIR_SPARSE_CB: directory for Radar sparse cube (much faster, generating them via ./datasets/kradar_detection_v1_0.py)
     ### directories for K-Radar ###
   
-  PATH_SPLIT: {
+  #data를 train과 test로 나누는 파일 경로 설정
+  PATH_SPLIT: { 
     'train': './resources/split/train.txt',
     'test':  './resources/split/test.txt',
   }
   
-  TYPE_COORD: 1 # 1: Radar, 2: Lidar, 3: Camera
+  TYPE_COORD: 1 # 1: Radar, 2: Lidar, 3: Camera #데이터의 type 설정부분 여기서는 radar(1) 사용
 
   LABEL:
-    IS_CONSIDER_ROI: True
+    IS_CONSIDER_ROI: True #ROI(region of interest)부고려여부
     ROI_TYPE: 'sparse_cube' # in ['default', 'cube', 'sparse_cube', 'lpc']
     ROI_DEFAULT: [0,120,-100,100,-50,50] # x_min_max, y_min_max, z_min_max / Dim: [m]
     
-    IS_CHECK_VALID_WITH_AZIMUTH: True
+    IS_CHECK_VALID_WITH_AZIMUTH: True #아지머스 각도 고려여부
     MAX_AZIMUTH_DEGREE: [-50, 50]
     TYPE_CHECK_AZIMUTH: 'center' # in ['center', 'apex']
   
   # Generated from Radar cube
-  RDR_SP_CUBE:
+  RDR_SP_CUBE: #radar sparse cube 생성방법 정설정
     NAME_RDR_SP_CUBE: 'sp_rdr_cube_corridor' # same as folder name
     METHOD: 'quantile'
     GRID_SIZE: 0.4 # [m]
-    IS_ANOTHER_DIR: True
+    IS_ANOTHER_DIR: True #sparse cube를 저장할 디렉토리 따로 지정할지
     ROI: { # each bin is 0.4 [m] (minimum range resolution)
       'z': [-2, 6.0],   # Dim: [m] / [-2.0, 6.0] for Driving corridor / None (erase)
       'y': [-6.4, 6.4], # Dim: [m] / [-6.4, 6.4] for Driving corridor
@@ -69,21 +72,21 @@ DATASET:
     } # Polar
 
   # For generating sparse cube
-  RDR_CUBE:
-    DOPPLER:
+  RDR_CUBE: #radar cube 생성방법 설정
+    DOPPLER: #doppler cube 생성방법
       IS_ANOTHER_DIR: True
       OFFSET: 1.9326
     
     IS_COUNT_MINUS_ONE_FOR_BEV: True # Null value = -1 for pw & -10 for Doppler
     IS_CONSIDER_ROI: True
-    ROI: { # each bin is 0.4 [m] (minimum range resolution)
+    ROI: { # each bin is 0.4 [m] (minimum range resolution) #ROI 범위조정
       'z': [-2, 5.6],     # Dim: [m] / [-2.0, 5.6] for Driving corridor / None (erase)
       'y': [-40.0, 39.6], # Dim: [m] / [-6.4, 6.0] for Driving corridor
       'x': [0, 98.8],     # Dim: [m] / [0.0, 71.6] for Driving corridor
     } # Cartesian
-    CONSIDER_ROI_ORDER: 'cube -> num' # in ['cube -> num', 'num -> cube']
-    BEV_DIVIDE_WITH: 'bin_z' # in ['bin_z', 'none_minus_1']
-    GRID_SIZE: 0.4 # [m]
+    CONSIDER_ROI_ORDER: 'cube -> num' # in ['cube -> num', 'num -> cube'] #ROI 축 지정
+    BEV_DIVIDE_WITH: 'bin_z' # in ['bin_z', 'none_minus_1'] #BEV 구성시 사용하는 구분방법
+    GRID_SIZE: 0.4 # [m] #3차원 공간 각각 크기설정
 
     ARR_Z: # automatically consider, just make this blank
     ARR_Y: # automatically consider, just make this blank
@@ -122,10 +125,10 @@ DATASET:
       'x': [0, 72.0],   # Dim: [m] / [0.0, 72.0] for Driving corridor
     } # LPC ROI is based on coordinate after calibration
   
-  CLASS_INFO:
+  CLASS_INFO: #dataset에서 사용할 클래스 정보 지정
     # If containing cls, make the ID as number
     # In this case, we consider ['Sedan', 'Bus or Truck'] as Sedan (Car)
-    CLASS_ID: {
+    CLASS_ID: { #class 이름과 ID를 mapping
       'Sedan': 1,
       'Bus or Truck': -1,
       'Motorcycle': -1,
@@ -157,6 +160,7 @@ DATASET:
 ### ----- Dataset ----- ###
 
 ### ----- Visualization ----- ###
+#openCV, open3D 시각화 라이브러리에서 사용할 class와 class에 대한 색상정의
 VIS:
   # OpenCV
   CLASS_BGR: {
@@ -180,12 +184,13 @@ VIS:
     'Label': [0.5, 0.5, 0.5]
   }
   
-  ROI:
+  ROI: #ROI 즉 데이터에서 관심있는 부분만 추출할때 이 범위 설정
     TYPE: 'default' # ['default', 'cube']
     DEFAULT: [0,100,-40,40,-10,60] # x_min_max, y_min_max, z_min_max / Dim: [m]
 
   # For BEV model visualization
-  Z_CENTER: {
+  #모델 시각화를 위한 값 설정
+  Z_CENTER: { #객체의 중심점 설정
     'Sedan': 0.5,
     'Bus or Truck': 1.5,
     'Motorcycle': 0.5,
@@ -195,7 +200,7 @@ VIS:
   }
 
   # For BEV model visualization
-  Z_HEIGHT: {
+  Z_HEIGHT: { #객체의 높이설
     'Sedan': 1.9,
     'Bus or Truck': 1.9,
     'Motorcycle': -1,
