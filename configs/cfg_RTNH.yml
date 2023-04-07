@@ -1,22 +1,23 @@
 ### ----- General ----- ###
+#딥러닝 모델학습 정보
 GENERAL:
-  NAME: 'RTNH'
+  NAME: 'RTNH'  #모델이름
   COMMENT1: 'Driving corridor, LR 0.001~0.0001'
   COMMENT2: 'Adam'
   VERSION: '1.1'
   SEED: 202206
-  IS_CUDA_SEED: False
-  IS_DETERMINISTIC: True
+  IS_CUDA_SEED: False #cuda seed 사용할지 여부
+  IS_DETERMINISTIC: True #학습과정에서 난수를 사용할지 여부
   DEVICE: 'gpu'
   RESUME:
-    IS_RESUME: False
-    PATH_EXP: # None
-    START_EP: # None
-    IS_COPY_LOGS: True
+    IS_RESUME: False #이어서 학습할지
+    PATH_EXP: # None #이전에 저장된 학습 겨로가를 불러올 경로
+    START_EP: # None #이어서 학습을 시작할 epoch 번호 지정
+    IS_COPY_LOGS: True #이전에 저장된 로그를 복사할지 여부
 
-  LOGGING:
-    IS_LOGGING: True
-    PATH_LOGGING: './logs'
+  LOGGING: #학습과정에서 로그를 기록하고 저장할지 여부
+    IS_LOGGING: True #로그 기록할지 여부
+    PATH_LOGGING: './logs' #
     IS_SAVE_MODEL: True
     INTERVAL_EPOCH_MODEL: 1
     INTERVAL_EPOCH_UTIL: 5
