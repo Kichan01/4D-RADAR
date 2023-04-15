@@ -1,3 +1,5 @@
+#모델 학습 및 평가 시 사용되는 상수 및 데이터 딕셔너리를 정의
+#이 파일을 import 하면 아래의 변수(BASE_DIR, IS_UBUNTU, EPS, DIC_CLS_BGR, DIC_CLS_RGB)들을 사용할 수 있게 됨.
 import os
 import numpy as np
 
