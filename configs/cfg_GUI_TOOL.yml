@@ -1,4 +1,4 @@
-#Visualization GUI 설정
+#Visualization GUI 설정. //시각화 도구를 사용하여 모델의 입력, 출력, 가중치, 중간 레이어 등을 시각적으로 보여주는 그래픽 사용자 인터페이스.
 ### ----- General ----- ###
 GENERAL:
   NAME: 'Visualzation GUI configuration' #설정파일
