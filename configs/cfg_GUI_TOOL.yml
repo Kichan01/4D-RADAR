@@ -200,7 +200,7 @@ VIS:
   }
 
   # For BEV model visualization
-  Z_HEIGHT: { #객체의 높이설
+  Z_HEIGHT: { #객체의 높이설정 
     'Sedan': 1.9,
     'Bus or Truck': 1.9,
     'Motorcycle': -1,
