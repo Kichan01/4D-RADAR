@@ -1,3 +1,4 @@
+#PillarsBackbone 클래스를 정의. 이 클래스는 입력 정보에 따라 CNN 구축 
 import torch
 import torch.nn as nn
 import numpy as np
