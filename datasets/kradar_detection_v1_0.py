@@ -1,9 +1,4 @@
-'''
-* Copyright (c) AVELab, KAIST. All rights reserved.
-* author: Donghee Paek, AVELab, KAIST
-* e-mail: donghee.paek@kaist.ac.kr
-* description: dataset for 3D object detection
-'''
+#KRadarDetection_v1_0 클래스를 정의
 
 import os
 import os.path as osp
@@ -30,7 +25,7 @@ except:
     from utils.util_cfar import *
 
 class KRadarDetection_v1_0(Dataset):
-    def __init__(self, cfg=None, split='train'):
+    def __init__(self, cfg=None, split='train'): #cfg: config(구성)정보 저장, split:데이터셋 분리
         super().__init__()
         self.cfg = cfg
 
