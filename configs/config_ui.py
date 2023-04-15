@@ -1,12 +1,4 @@
-"""
-# -*- coding: utf-8 -*-
---------------------------------------------------------------------------------
-# author: Donghee Paek, AVELab, KAIST
-# date:   2021.10.06
-# e-mail: donghee.paek@kaist.ac.kr
---------------------------------------------------------------------------------
-# description: script for ui configs
-"""
+#프로그램 설정값 저장
 
 # Library
 import os.path as osp
