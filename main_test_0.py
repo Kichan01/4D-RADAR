@@ -12,11 +12,11 @@ MODEL_EPOCH = 10
 SAMPLE_INDICES = [30,70]
 CONFIDENCE_THR = 0.55
 
-from pipelines.pipeline_detection_v1_0 import PipelineDetection_v1_0
+from pipelines.pipeline_detection_v1_0 import PipelineDetection_v1_0 #import file 
 
 if __name__ == '__main__':
-    PATH_CONFIG = './logs/' + EXP_NAME + '/config.yml'
-    PATH_MODEL = './logs/' + EXP_NAME + f'/models/model_{MODEL_EPOCH}.pt'
+    PATH_CONFIG = './logs/' + EXP_NAME + '/config.yml' #변수 path 지정
+    PATH_MODEL = './logs/' + EXP_NAME + f'/models/model_{MODEL_EPOCH}.pt' #model path 지정
 
     pline = PipelineDetection_v1_0(PATH_CONFIG, mode='vis')
     pline.load_dict_model(PATH_MODEL)
