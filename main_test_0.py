@@ -19,6 +19,6 @@ if __name__ == '__main__':
     PATH_MODEL = './logs/' + EXP_NAME + f'/models/model_{MODEL_EPOCH}.pt' #model path 지정
 
     pline = PipelineDetection_v1_0(PATH_CONFIG, mode='vis')
-    pline.load_dict_model(PATH_MODEL)
-    pline.vis_infer(sample_indices=SAMPLE_INDICES, conf_thr=CONFIDENCE_THR)
+    pline.load_dict_model(PATH_MODEL) #딕셔너리 파일 load하여 모델 초기화
+    pline.vis_infer(sample_indices=SAMPLE_INDICES, conf_thr=CONFIDENCE_THR) #시각화 추론 후 결과 시각화
     
