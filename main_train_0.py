@@ -17,6 +17,7 @@ if __name__ == '__main__':
     ### Save this file for checking ###
     import shutil
     shutil.copy2(os.path.realpath(__file__), os.path.join(pline.path_log, 'executed_code.txt'))
+    #현재 스크립트 파일의 절대경로 복사. executed_code.txt라는 이름으로 pline.path_log 디렉터리로 복사.
     ### Save this file for checking ###
 
     pline.train_network()
