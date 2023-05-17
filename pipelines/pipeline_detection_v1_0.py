@@ -225,32 +225,32 @@ class PipelineDetection_v1_0():
 
         return
 
-    def train_network(self, is_shuffle=True):
+    def train_network(self, is_shuffle=True): #shuffle: 데이터를 섞을지 여부. 데이터를 섞으면 편향을 줄일 수 있음
         self.network.train()
-        data_loader_train = torch.utils.data.DataLoader(self.dataset_train, \
-            batch_size = self.cfg.OPTIMIZER.BATCH_SIZE, shuffle = is_shuffle, \
-            collate_fn = self.dataset_train.collate_fn,
-            num_workers = self.cfg.OPTIMIZER.NUM_WORKERS, drop_last = True)
-
+        data_loader_train = torch.utils.data.DataLoader(self.dataset_train, \ #self.dataset_train데이터셋 load
+            batch_size = self.cfg.OPTIMIZER.BATCH_SIZE, shuffle = is_shuffle, \ #동시에 처리하는 양 조절
+            collate_fn = self.dataset_train.collate_fn, #데이터셋에 따라 특정한 전처리 작업하는 경우 배치 형성 과정을 정의
+            num_workers = self.cfg.OPTIMIZER.NUM_WORKERS, drop_last = True) #데이터 load를 병렬화
+        #epoch: 전체 train dataset이 신경망을 통과한 횟수
         epoch_start = self.epoch_start
         epoch_end = self.cfg.OPTIMIZER.MAX_EPOCH
 
-        if self.is_logging:
+        if self.is_logging: #로깅(학습과정의 중간결과 기록)이 활성화 되면
             idx_log_iter = 0 if self.log_iter_start is None else self.log_iter_start
-
+        #각 epoch에 대한 학습 수행
         for epoch in range(epoch_start, epoch_end):
-            print(f'* Training epoch = {epoch}/{epoch_end-1}')
-            if self.is_logging:
+            print(f'* Training epoch = {epoch}/{epoch_end-1}')# 현재 진행중인 epoch 출력
+            if self.is_logging: #로깅이 활성화 된 경우 log 파일이 저장된 경로 출력
                 print(f'* Logging path = {self.path_log}')
             
-            self.network.train()
-            self.network.training = True
-            avg_loss = []
-            for idx_iter, dict_datum in enumerate(tqdm(data_loader_train)):
-                    dict_net = self.network(dict_datum)
-                    loss = self.network.head.loss(dict_net)
+            self.network.train() #network.train 호출
+            self.network.training = True #학습중임을 나타냄
+            avg_loss = [] #배치의 손실값을 저장할 변수
+            for idx_iter, dict_datum in enumerate(tqdm(data_loader_train)): #enumerate: 반복문에서 각 미니배치의 인덱스와 데이터에 접근할 수 있게함
+                    dict_net = self.network(dict_datum) #예측 결과 저장
+                    loss = self.network.head.loss(dict_net) #예측결과를 기반으로 손실 계산
 
-                    ### Loss for additional head ### 
+                    ### Loss for additional head ### # 추가적인 head에 대한 손실도 계산하여 loss 에 추가
                     if hasattr(self.network, 'point_head'): # PVRCNN_PP
                         point_loss = self.network.point_head.loss(dict_net)
                         loss += point_loss
