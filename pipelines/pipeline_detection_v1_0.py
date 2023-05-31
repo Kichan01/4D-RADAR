@@ -39,7 +39,7 @@ class PipelineDetection_v1_0():
         *   'train' denotes both train & test
         *   'test'  denotes mode for inference
         '''
-        self.cfg = cfg_from_yaml_file(path_cfg, cfg)
+        self.cfg = cfg_from_yaml_file(path_cfg, cfg) #train일 때 path_cfg : ./configs/cfg_RTNH.yml. 이 경로의 YMAL 파일에서 정보를 읽어와 필요한 데이터 구조로 변경
         self.mode = mode
         self.update_cfg_regarding_mode()
 
